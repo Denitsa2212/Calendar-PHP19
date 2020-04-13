@@ -11,12 +11,12 @@ Done:
 - edit function
 - write function
 - delete function
-- done, missing, coming tags on tasks
 - filtered display function
 
 To Do: 
 - style
 - user profile
+- done, missing, coming tags on tasks
 - limit descriptions in main page
 - per session settings (list order and theme)
 - dynamic page titles

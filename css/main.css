@@ -32,6 +32,35 @@ input[type=submit] {
     margin-top: 2%;
 }
 
+nav {
+    background-color: #23272A;
+    position: sticky;
+    top: 0;
+    text-align: left;
+    padding-left: 2%;
+    font-size: x-large;
+}
+
+nav a:link, nav a:visited {
+    float: right;
+    line-height: 200%;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+}
+  
+nav a:hover, nav a:active {
+    text-decoration: underline;
+}
+
+nav p {
+    color: white;
+    line-height: 300%;
+    padding-top: 0;
+    display: inline;
+}
+
 .alert {
     background:#1c1f21;
     border-left: 6px solid #ff0000;

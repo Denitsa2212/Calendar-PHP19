@@ -1,54 +1,52 @@
-<html>
-    <head>
-        <title>MC thing</title>
-        <link rel="stylesheet" type="text/css" href="../main.css">
-    </head>
-    <body>
-        <section>
-        <?php
-            include '../include/management.php'; 
+<?php 
+    include '../include/management.php';
+    //dynamic title
+    function here($where) {
+        if ($where == true) {
+            return "Task № " . $_GET["task_id"]; 
+        }
+    }
+?>
+<section>
+<?php    
+    //get the selected task
+    $task = $_GET["task_id"];
+    $read_query = ("SELECT * FROM tasks WHERE task_id = $task");
+    $result = mysqli_query($conn, $read_query);
 
-            echo "<a href='../main.php'>All tasks</a>";
-            
-            $task = $_GET["task_id"];
-            $read_query = ("SELECT * FROM tasks WHERE task_id = $task");
-            $result = mysqli_query($conn, $read_query);
-
-            if( mysqli_num_rows($result) > 0 ){
-                while ($row = mysqli_fetch_assoc($result)) {
-                    //echo json_encode($row) . "<br>";
-                    echo "<article>";
-                    echo "<h3>". $row["Title"] ."</h3>";
-                    echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " " . strtotime($row["Due"]) ."</p>";
-                    echo "<p>". $row["Description"] ."</p>";
-
-                    echo "<p><a href='./edit.php?task_id=". $row["task_id"] ."'> Edit </a></p> <br>";
-                    echo "<p><a href='./delete.php?task_id=". $row["task_id"] ."'> delete </a></p>";
-                    echo "</article>";
+    //display said task
+    if( mysqli_num_rows($result) > 0 ){
+        while ($row = mysqli_fetch_assoc($result)) {
+            //echo json_encode($row) . "<br>";
+            echo "<article>";
+            echo "<h3>". $row["Title"] ."</h3>";
+            //checking and giving a status to the task
+            if (strtotime($row["Due"]) <= strtotime($row["Created"]) && $row["Done"] == 0) {
+                echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " Missing" ."</p>";
+            } elseif (strtotime($row["Due"]) <= strtotime($row["Created"]) && $row["Done"] == 1) {
+                echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " Done Late" ."</p>";
+            }else {
+                if ($row["Done"] == 0) {
+                    echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " Not Done" ."</p>";
+                } else {
+                    echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " Done" ."</p>";
                 }
             }
+            echo "<p>". $row["Description"] ."</p>";
 
-            if (!empty($_POST["title"])) {
-
-                $title = $_POST["title"];
-
-                //$conn->query("UPDATE `tasks` SET `Title`='$title', `Description`='$desc', `Due`=$due WHERE task_id='$task'");
-                $conn->query("UPDATE `tasks` SET `Title`='$title' WHERE task_id='$task'");
-            } 
-            
-            if ( !empty($_POST["due"])) {
-                $due = $_POST["due"];
-
-                $conn->query("UPDATE `tasks` SET `Due`='$due' WHERE task_id='$task'");
-            } 
-            
-            if (!empty($_POST["desc"])) {
-                $desc = $_POST["desc"];
-
-                $conn->query("UPDATE `tasks` SET `Description`='$desc' WHERE task_id='$task'");
+            //task options
+            if ($row["Done"] == 0) {
+                echo "<p><a href='./done.php?task_id=". $row["task_id"] ."&done=".$row["Done"] ."'> Mark as Done </a></p>";
+            } else {
+                echo "<p><a href='./done.php?task_id=". $row["task_id"] ."&done=".$row["Done"] ."'> Mark as Undone </a></p>";
             }
-            
-        ?>
-        </section>
-    </body>
-</html>
+            echo "<p><a href='./edit.php?task_id=". $row["task_id"] ."'> Edit </a></p>";
+            echo "<p><a href='./delete.php?task_id=". $row["task_id"]."'> delete </a></p>";
+            echo "</article>";
+        }
+    }
+?>
+</section>
+<?php 
+    include '../include/footer.php';
+?>

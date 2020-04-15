@@ -44,7 +44,9 @@
             //make the title a link when clicked you can go to details about the task
             echo "<h3><a href='./task/task.php?task_id=". $row["task_id"] ."'>". $row["Title"] ."</a></h3>";
             echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] ."</p>";
-            echo "<p>". $row["Description"] ."</p>";
+            echo "<p>". mb_strimwidth($row["Description"], 0, 60, '...') ."</p>";
+            echo "<p><a href='task/edit.php?task_id=". $row["task_id"] ."'> Edit </a></p>";
+            echo "<p><a href='task/delete.php?task_id=". $row["task_id"]."'> delete </a></p>";
             echo "</article>";
             echo "<hr>";
         }

@@ -22,18 +22,19 @@
             echo "<h3>". $row["Title"] ."</h3>";
             //checking and giving a status to the task
             if (strtotime($row["Due"]) <= strtotime($row["Created"]) && $row["Done"] == 0) {
-                echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " Missing" ."</p>";
+                $tag = "<p> Missing" ."</p>";
             } elseif (strtotime($row["Due"]) <= strtotime($row["Created"]) && $row["Done"] == 1) {
-                echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " Done Late" ."</p>";
+                $tag = "<p>Done Late" ."</p>";
             }else {
                 if ($row["Done"] == 0) {
-                    echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " Not Done" ."</p>";
+                    $tag = "<p> Not Done" ."</p>";
                 } else {
-                    echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " Done" ."</p>";
+                    $tag = "<p> Done" ."</p>";
+
                 }
             }
+            echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] ."</p>". $tag;
             echo "<p>". $row["Description"] ."</p>";
-
             //task options
             if ($row["Done"] == 0) {
                 echo "<p><a href='./done.php?task_id=". $row["task_id"] ."&done=".$row["Done"] ."'> Mark as Done </a></p>";

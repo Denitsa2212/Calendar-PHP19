@@ -14,6 +14,9 @@
         echo "<p class='alert'> Now log in into your newly made account! </p>";
     }
     if (!empty($_GET["logout"]) && $_GET["logout"] == true) {
+        //clrearing the previous session
+        session_destroy();
+        session_start();
         echo "<p class='alert'> You have logged out of your account! </p>";
     }
 
@@ -62,7 +65,6 @@
         <input name="pass" type="password"><br><br>
         <input type="submit">
     </form> 
-    <div style="height: 100%;"></div>
 </section>
 <?php 
     include 'include/footer.php';

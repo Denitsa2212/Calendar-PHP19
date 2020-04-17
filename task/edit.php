@@ -8,21 +8,17 @@
 ?>
 <section>
 <?php
-    include '../include/management.php'; 
-    
+
     //get and sort the task
     $task = $_GET["task_id"];
     $read_query = ("SELECT * FROM tasks WHERE task_id = $task");
     $result = mysqli_query($conn, $read_query);
 
     //get contents
-    if( mysqli_num_rows($result) > 0 ){
-        while ($row = mysqli_fetch_assoc($result)) {
-            $txttitle = $row["Title"];
-            $txtdue = $row["Due"];
-            $txtdesc = $row["Description"];
-        }
-    }
+    $row = mysqli_fetch_assoc($result);
+    $txttitle = $row["Title"];
+    $txtdue = $row["Due"];
+    $txtdesc = $row["Description"];
 
     //3 ifs so each feild can be eddited seperatly
     if (!empty($_POST["title"])) {

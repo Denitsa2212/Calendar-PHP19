@@ -27,7 +27,24 @@
             echo "<p class='alert'> Pass dont match </p>";
         }
 
-    }// elseif ($soon) {}
+    } else { 
+        $numb = 0;
+        if (empty($_POST["name"])) {
+            $numb++;
+        }
+        if (empty($_POST["mail"])) {
+            $numb++;
+        }
+        if (empty($_POST["pass"])) {
+            $numb++;
+        }
+        if (empty($_POST["pass-config"])) {
+            $numb++;
+        }
+        if ($numb < 4) {
+            echo "<p class='alert'> You forgot something in the form!</p>";
+        } 
+    } 
 ?>
 
     <form action="" method="post">
@@ -41,7 +58,6 @@
         <input name="pass-conf" type="password"><br><br>
         <input type="submit">
     </form> 
-    <div style="height: 100%;"></div>
 </section>
 <?php 
     include 'include/footer.php';

@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    background-color: pink;
+
 }
 section {
     width: 70%;
@@ -80,14 +82,12 @@ nav p {
     text-decoration: underline;
 }
 
-
 .alert {
     background:#1c1f21;
     border-left: 6px solid #ff0000;
     color: white;
     border-radius: 0px 10px 10px 0px;
     margin: auto;
-    top: 50px;
     width: 50%;
     padding: 10px;
 }

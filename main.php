@@ -118,7 +118,7 @@
         echo "<h3><a href='./task/task.php?task_id=". $row["task_id"] ."'>".mb_strimwidth($row["Title"], 0, 80, '...') ."</a></h3>";
         echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " " . taging($row) ."</p>";
         //nl2br prints the linebreaks
-        echo "<p>". nl2br(mb_strimwidth($row["Description"], 0, 300, '...')) ."</p>";
+        echo "<p>". nl2br(mb_strimwidth($row["Description"], 0, 300, '[..]')) ."</p>";
         echo "</article>";
         echo "<hr>";
     }

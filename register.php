@@ -12,9 +12,11 @@
     $read_query = "SELECT * FROM users";
     $result = mysqli_query($conn, $read_query);
     //checking if form is empty
-    if (!empty($_POST["name"]) && !empty($_POST["mail"]) && !empty($_POST["pass"]) && !empty($_POST["pass-conf"])) {
+    $patern = "^[a-zA-Z0-9.!#$%&'*+/=?`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$^";
+    if (!empty($_POST["name"]) && !empty($_POST["mail"]) && !empty($_POST["pass-conf"])) {
         //check if pass check checks chekcs out
-        if ($_POST["pass"] == $_POST["pass-conf"]) {
+		$mail_match = $_POST["mail"];
+        if ($_POST["pass"] == $_POST["pass-conf"] && preg_match($patern, $mail_match) && !empty($_POST["pass"])) {
             $name = $_POST["name"];
             $mail = $_POST["mail"];
             $pass = $_POST["pass"];
@@ -23,8 +25,10 @@
             $conn->query("INSERT INTO `users` (`Name`, `Mail`, `Password`, `Created`) VALUES ('$name', '$mail', '$pass', '$now')");
             //once the account is created it redirects to the login page
             header("Location: login.php?register=true");
-        } else {
+        } elseif ($_POST["pass"] !== $_POST["pass-conf"]){
             echo "<p class='alert'> Pass dont match </p>";
+        }else{
+        	echo "<p class='alert'> Email is not valid </p>";
         }
 
     } else { 

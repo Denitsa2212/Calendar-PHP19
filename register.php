@@ -7,59 +7,53 @@
         }
     }
 ?>
-<section>
-<?php
-    $read_query = "SELECT * FROM users";
-    $result = mysqli_query($conn, $read_query);
-    //checking if form is empty
-    $patern = "^[a-zA-Z0-9.!#$%&'*+/=?`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$^";
-    if (!empty($_POST["name"]) && !empty($_POST["mail"]) && !empty($_POST["pass-conf"])) {
-        //check if pass check checks chekcs out
-		$mail_match = $_POST["mail"];
-        if ($_POST["pass"] == $_POST["pass-conf"] && preg_match($patern, $mail_match) && !empty($_POST["pass"])) {
-            $name = $_POST["name"];
-            $mail = $_POST["mail"];
-            $pass = $_POST["pass"];
-            $now = date('Y-m-d');
+<section class="login">
+    <?php
+        $read_query = "SELECT * FROM users";
+        $result = mysqli_query($conn, $read_query);
+        $patern = "^[a-zA-Z0-9.!#$%&'*+/=?`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$^";
 
-            $conn->query("INSERT INTO `users` (`Name`, `Mail`, `Password`, `Created`) VALUES ('$name', '$mail', '$pass', '$now')");
-            //once the account is created it redirects to the login page
-            header("Location: login.php?register=true");
-        } elseif ($_POST["pass"] !== $_POST["pass-conf"]){
-            echo "<p class='alert'> Pass dont match </p>";
-        }else{
-        	echo "<p class='alert'> Email is not valid </p>";
-        }
+        //checking if form is empty
+        if (!empty($_POST["name"]) && !empty($_POST["mail"]) && !empty($_POST["pass"]) && !empty($_POST["pass-conf"])) {
+            //check if pass check checks chekcs out
+            if ($_POST["pass"] == $_POST["pass-conf"] && preg_match($patern, $_POST["mail"])) {
+                $name = $_POST["name"];
+                $mail = $_POST["mail"];
+                $pass = $_POST["pass"];
+                $now = date('Y-m-d');
 
-    } else { 
-        $numb = 0;
-        if (empty($_POST["name"])) {
-            $numb++;
-        }
-        if (empty($_POST["mail"])) {
-            $numb++;
-        }
-        if (empty($_POST["pass"])) {
-            $numb++;
-        }
-        if (empty($_POST["pass-config"])) {
-            $numb++;
-        }
-        if ($numb < 4) {
-            echo "<p class='alert'> You forgot something in the form!</p>";
+                $conn->query("INSERT INTO `users` (`Name`, `Mail`, `Password`, `Created`) VALUES ('$name', '$mail', '$pass', '$now')");
+                //once the account is created it redirects to the login page
+                header("Location: login.php?register=true");
+            } else {
+                echo "<p class='alert'> Pass dont match </p>";
+            }
+
+        } else { 
+            $numb = 0;
+            if (empty($_POST["name"])) {
+                $numb++;
+            }
+            if (empty($_POST["mail"])) {
+                $numb++;
+            }
+            if (empty($_POST["pass"])) {
+                $numb++;
+            }
+            if (empty($_POST["pass-config"])) {
+                $numb++;
+            }
+            if ($numb < 4) {
+                echo "<p class='alert'> You forgot something in the form!</p>";
+            } 
         } 
-    } 
-?>
-
-    <form action="" method="post">
-        <label >Name:</label><br>
-        <input name="name"><br>
-        <label >Mail:</label><br>
-        <input name="mail"><br>
-        <label >Password:</label><br>
-        <input name="pass" type="password"><br>
-        <label >Confirm password:</label><br>
-        <input name="pass-conf" type="password"><br><br>
+    ?>
+    <h1>Register</h1>
+    <form action="" method="post" class="log">
+        <input type="text" name="name" placeholder="Name"><br>
+        <input type="text" name="mail" placeholder="E-Mail"><br>
+        <input name="pass" type="password" placeholder="Password"><br>
+        <input name="pass-conf" type="password" placeholder="Confirm Password"><br><br>
         <input type="submit">
     </form> 
 </section>

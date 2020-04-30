@@ -6,10 +6,10 @@ include '../include/management.php';
         }
     }
 ?>
-<section>
-    <form action="" method="post">
-        <label >Type "delete" below to confirm</label><br>
-        <input name="delete"><br>
+<section class="login">
+    <h1>Delete?</h1>
+    <form action="" method="post" class="log">
+        <input name="delete" type="text" placeholder='Type "delete" in this box to confirm.'><br>
         <input type="submit">
     </form> 
 </section>

@@ -9,7 +9,7 @@
         }
     }
 ?>
-<section>
+<section class="main">
     <?php
         //prep for task display, getting user aidi and soritng
         $aidi = $_SESSION["user_info"]["user_id"];
@@ -26,6 +26,8 @@
             $now = date('Y-m-d');
     
             $conn->query("INSERT INTO `tasks` (`user_id`, `Title`, `Description`, `Created`, `Due`, `Done`) VALUES ('$aidi', '$title', '$desc', '$now', '$due', '0')");
+            sleep(1);
+            header("Refresh:0");
         } else { 
             $numb = 0;
             if (empty($_POST["title"])) {
@@ -42,14 +44,11 @@
             } 
         } 
     ?>
-    <form action="" method="post">
-        <label >Title:</label><br>
-        <input name="title"><br>
-        <label >Due:</label><br>
-        <input type="date" name="due"><br>
-        <label >Description:</label><br>
-        <textarea name="desc"></textarea><br><br>
-        <input type="submit">
+    <form action="" method="post" class="post">
+        <input type="text" name="title" placeholder="Title">
+        <input type="date" name="due" placeholder="Due">
+        <textarea name="desc" placeholder="Description"></textarea>
+        <input type="submit"> <br>
     </form> 
 
     <div class="nav-2">
@@ -65,14 +64,19 @@
         $_GET["type"] = "all";
     }
 
+    $none = 0;
     switch ($_GET["type"]) {
         case 'done':
             if( mysqli_num_rows($result) > 0 ){
                 while ($row = mysqli_fetch_assoc($result)) {
                     if (taging($row) == "Done" || taging($row) == "Done Late") {
                         display($row);
+                        $none++;
                     }
                 }
+            }
+            if ($none <= 0) {
+                missing($_GET["type"]);
             }
             break;
         case 'missed':
@@ -80,8 +84,12 @@
                 while ($row = mysqli_fetch_assoc($result)) {
                     if (taging($row) == "Missing") {
                         display($row);
+                        $none++;
                     }
                 }
+            }
+            if ($none <= 0) {
+                missing($_GET["type"]);
             }
             break;
         case 'upcoming':
@@ -89,8 +97,12 @@
                 while ($row = mysqli_fetch_assoc($result)) {
                     if (taging($row) == "For Today" || taging($row) == "Within A Week" || taging($row) == "Upcoming") {
                         display($row);
+                        $none++;
                     }
                 }
+            }
+            if ($none <= 0) {
+                missing($_GET["type"]);
             }
             break;
         default:
@@ -98,7 +110,13 @@
             if( mysqli_num_rows($result) > 0 ){
                 while ($row = mysqli_fetch_assoc($result)) {
                     display($row);
+                    $none++;
                 }
+            } else {
+                echo "<article class='notasks'>
+                <p> You dont have any tasks yet.</p>
+                <p> To make one use the form above!</p>
+                </article>";
             }
         break;
     }
@@ -116,9 +134,11 @@
                 break;
         }
         echo "<h3><a href='./task/task.php?task_id=". $row["task_id"] ."'>".mb_strimwidth($row["Title"], 0, 80, '...') ."</a></h3>";
-        echo "<p> Created:". $row["Created"] . " - Due:" . $row["Due"] . " " . taging($row) ."</p>";
+        echo "<p class='tag'>". taging($row) ."</p>";
+        echo "<p class='dates'> Created: ". $row["Created"] . " Due: " . $row["Due"] ."</p>";
+        
         //nl2br prints the linebreaks
-        echo "<p>". nl2br(mb_strimwidth($row["Description"], 0, 300, '[..]')) ."</p>";
+        echo "<p class='description'>". nl2br(mb_strimwidth($row["Description"], 0, 300, '[..]')) ."</p>";
         echo "</article>";
         echo "<hr>";
     }
@@ -126,8 +146,6 @@
     function taging($row) {
         if (strtotime(date('Y-m-d')) > strtotime($row["Due"]) && $row["Done"] == 0) {
             return "Missing";
-        } elseif (strtotime(date('Y-m-d')) > strtotime($row["Due"]) && $row["Done"] == 1) {
-            return "Done Late";
         } else {
             if (strtotime(date('Y-m-d')) == strtotime($row["Due"]) && $row["Done"] == 0) {
                 return "For Today";
@@ -141,8 +159,23 @@
         }
     }
 
+    function missing($type) {
+        echo "<article class='notasks'>";
+        echo "<p> You dont have any $type tasks.</p>";
+        echo "</article>";
+    }
+
     ?>
+    <div style="height: 5%"> 
+    <?php 
+    if ($none > 0) {
+        echo '<p style="text-align: center; padding: 1%"> ..and more to come! </p>';
+    }
+    ?>
+        
+    </div>
 </section>
+
 <?php 
     include 'include/footer.php';
 ?>

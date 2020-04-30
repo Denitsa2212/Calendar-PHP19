@@ -39,55 +39,61 @@
             echo "<p class='alert'> Passowrds dont match </p>";
         }
     }
-
-    echo "<section>";
-    echo "<h2>Settings page</h2>";
-    echo "Current <br> Style: ". ucfirst(substr($_SESSION["settings"][0], 0, -4)) . "<br> Order: " . $_SESSION["settings"][1];
-    
-    echo "<form method='post'>";
-    echo "<h3>Style and order</h3>";
-    echo "<select name='style'>";
-    foreach (array_slice(scandir("../css"), 2) as $value) {
-        if ($once == false) {
-            echo "<option value='none'> Select a style </option>";
-            $once = true;
-        }
-        echo "<option value='$value'>". ucfirst(substr($value, 0, -4)) ."</option>";
-    }
-    echo "</select>";
     ?>
-        <select name="order">
-            <option value='none'> Select task order </option>
-            <option value='Title'> Alphabetical </option>
-            <option value='Created'> By Date created </option>
-            <option value='Due'> By Date Due </option>
-        </select>
-        <br><input type='submit'>
-    </form>
-    <hr>
-    <form method='post'>
-        <h3>User info</h3>
-        <label >Title:</label><br>
-        <textarea name="name"><?php echo htmlspecialchars($txtname) ?></textarea><br>
-        <label >Mail:</label><br>
-        <textarea name="mail"><?php echo htmlspecialchars($txtmail) ?></textarea><br>
-        <input type='submit'>
-    </form>
-        <hr>
-    <form method='post'>
-        <h3>Password</h3>
-        <label >Old Password:</label><br>
-        <input type='password' name="old-pass"></input><br>
-        <label >New Password</label><br>
-        <input name="new-pass"></input><br>
-        <label >Confirm new Password:</label><br>
-        <input name="new-pass-conf"></input><br>
-        <br><input type='submit'>
-    </form>
-    <?php
-    echo "</form>";
-    echo "</section>";
 
+    <section class='settings'>
+        <h1>Settings page</h1>
+        <p> Current <br> Style: <?=ucfirst(substr($_SESSION["settings"][0], 0, -4))?> <br> Order: <?=$_SESSION["settings"][1]?> </p>
+        
+        <form method='post'>
+            <h3>Style and order</h3>
+            <select name='style'>
+            <?php
+            foreach (array_slice(scandir("../css"), 2) as $value) {
+                if ($once == false) {
+                    echo "<option value='none'> Select a style </option>";
+                    $once = true;
+                }
+                echo "<option value='$value'>". ucfirst(substr($value, 0, -4)) ."</option>";
+            }
+            ?>
+            </select>
+            
+            <select name="order">
+                <option value='none'> Select task order </option>
+                <option value='Title'> Alphabetical </option>
+                <option value='Created'> By Date created </option>
+                <option value='Due'> By Date Due </option>
+            </select>
+            <br><input type='submit'>
+        </form>
+        <hr>
+
+        <form method='post'>
+            <h3>User info</h3>
+            <input type="text" name="name" placeholder="Username" value="<?=htmlspecialchars($txtname)?>"></input><br>
+            <input type="text" name="mail" placeholder="E-Mail" value="<?=htmlspecialchars($txtmail)?>"></input><br>
+            <input type='submit'>
+        </form>
+        <hr>
+
+        <form method='post'>
+            <h3>Password Reset</h3>
+            <input type='password' name="old-pass" placeholder="Old Password"></input><br><br>
+            <input type="text" name="new-pass" placeholder="New Password"></input><br>
+            <input type="text" name="new-pass-conf" placeholder="Confirm New Password"></input><br>
+            <input type='submit'>
+        </form>
+        <hr>
+
+        <form method='post'>
+            <h3>Delete accouunt</h3>
+            <input name="delete" type="text" placeholder='Type "delete" in this box to confirm.'><br>
+            <input type='submit'>
+        </form>
+        
+    </section>
+    <?php
     if (!empty($_POST["style"])) {
         if ($_POST["style"] != "none") {
             $_SESSION["settings"][0] = $_POST["style"];
@@ -100,6 +106,12 @@
             $_SESSION["settings"][1] = $_POST["order"];
             header("Refresh:0");
         }
+    }
+
+    if (!empty($_POST["delete"]) && $_POST["delete"] == "delete") {
+        $user = $_SESSION["user_info"]["user_id"];
+        $conn->query("DELETE FROM users WHERE `user_id`=$user");
+        header("Location: ../register.php");
     }
 
     include '../include/footer.php';

@@ -13,6 +13,8 @@
     ?>
     <head>
         <title><?= here("title") //dynamic title ?></title>
+        <!-- Just a font to make it loom nicer -->
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <?php 
         // check folder so it can apply css aproprietly
         if (preg_match("/\/task\//", $_SERVER["REQUEST_URI"])){

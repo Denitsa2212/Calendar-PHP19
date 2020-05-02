@@ -1,44 +1,44 @@
 /* ========================== COLORS ========================= */
 :root {
     /* global */
-    --bg: #2C2F33;
-    --bg-text: #99AAB5;
-    --section-bg : #23272A;
+    --bg: #000000;
+    --bg-text: #ffffff;
+    --section-bg : #0f0f0f;
     --link-color: #ffffff;
     /* forms */
-    --feild-bg: #2C2F33;
+    --feild-bg: #161616;
     --feild-text: #ffffff;
-    --submit-bg: #4a67cf;
+    --submit-bg: #182c12;
     --submit-text: #ffffff;
-    --date-after: #99AAB5;
+    --date-after: #aaa;
     /* main */
-    --main-article-even: #23272A;
-    --main-article-odd: #24272c;
-    --main-date: #99AAB5;
-    --main-missing: #cf4a4a;
-    --main-coming: #99AAB5;
-    --main-done: #4acf4a;
+    --main-article-even: #2c2c2c;
+    --main-article-odd: #272727;
+    --main-date: #ffffff;
+    --main-missing: #9e1d1d;
+    --main-coming: #707070;
+    --main-done: #2d992d;
     /* tasks */
     --opt-text: #ffffff;
-    --opt-done: #4acf4a;
-    --opt-undone: #8c4acf;
-    --opt-edit: #4a67cf;
-    --opt-delete: #cf4a4a;
-    --opt-log: #4a67cf;
-    --opt-reg: #4a67cf;
+    --opt-done: #193b1a;
+    --opt-undone: #3e0750;
+    --opt-edit: #072f50;
+    --opt-delete: #300505;
+    --opt-log: #23272A;
+    --opt-reg: #23272A;
     /* profile */
-    --pf-settings: #4a67cf;
-    --pf-logout: #cf4a4a;
+    --pf-settings: #182c12;
+    --pf-logout: #182c12;
     /* navs */
-    --nav-bg: #15181d;
+    --nav-bg: #23272A;
     --nav-text: #ffffff;
-    --nav2-bg: #15181d;
+    --nav2-bg: #23272A;
     --nav2-text: #ffffff;
     /* other */
-    --alret-bg: #15181d;
-    --alert-border: #cf4a4a;
+    --alret-bg: #23272A;
+    --alert-border: #9e1d1d;
     --alert-text: #ffffff;
-    --footer-bg: #15181d;
+    --footer-bg: #23272A;
     --footer-text: #ffffff;
 }
 

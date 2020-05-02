@@ -1,44 +1,53 @@
+<?php
+    header("Content-type: text/css; charset: UTF-8");
+
+    function getHex() {
+        $color = "#".dechex(rand(16, 255)).dechex(rand(16, 255)).dechex(rand(16, 255));
+        return $color;
+    }
+?>
+
 /* ========================== COLORS ========================= */
 :root {
     /* global */
-    --bg: #2C2F33;
-    --bg-text: #99AAB5;
-    --section-bg : #23272A;
-    --link-color: #ffffff;
+    --bg: <?=getHex()?>;
+    --bg-text: #000000;
+    --section-bg : <?=getHex()?>;
+    --link-color: #000000;
     /* forms */
-    --feild-bg: #2C2F33;
-    --feild-text: #ffffff;
-    --submit-bg: #4a67cf;
+    --feild-bg: #ffffff;
+    --feild-text: #000000;
+    --submit-bg: #4CAF50;
     --submit-text: #ffffff;
-    --date-after: #99AAB5;
+    --date-after: #aaa;
     /* main */
-    --main-article-even: #23272A;
-    --main-article-odd: #24272c;
-    --main-date: #99AAB5;
-    --main-missing: #cf4a4a;
-    --main-coming: #99AAB5;
-    --main-done: #4acf4a;
+    --main-article-even: <?=getHex()?>;
+    --main-article-odd: <?=getHex()?>;
+    --main-date: #808080;
+    --main-missing: #ff0000;
+    --main-coming: #808080;
+    --main-done: #16d616;
     /* tasks */
     --opt-text: #ffffff;
-    --opt-done: #4acf4a;
-    --opt-undone: #8c4acf;
-    --opt-edit: #4a67cf;
-    --opt-delete: #cf4a4a;
-    --opt-log: #4a67cf;
-    --opt-reg: #4a67cf;
+    --opt-done: #4CAF50;
+    --opt-undone: #a60ee2;
+    --opt-edit: #1385e2;
+    --opt-delete: #f71a1a;
+    --opt-log: #23272A;
+    --opt-reg: #23272A;
     /* profile */
-    --pf-settings: #4a67cf;
-    --pf-logout: #cf4a4a;
+    --pf-settings: #1385e2;
+    --pf-logout: #f71a1a;
     /* navs */
-    --nav-bg: #15181d;
+    --nav-bg: #23272A;
     --nav-text: #ffffff;
-    --nav2-bg: #15181d;
+    --nav2-bg: #23272A;
     --nav2-text: #ffffff;
     /* other */
-    --alret-bg: #15181d;
-    --alert-border: #cf4a4a;
+    --alret-bg: #23272A;
+    --alert-border: #ff0000;
     --alert-text: #ffffff;
-    --footer-bg: #15181d;
+    --footer-bg: #23272A;
     --footer-text: #ffffff;
 }
 

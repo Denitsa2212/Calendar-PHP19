@@ -138,7 +138,7 @@
         echo "<p class='dates'> Created: ". $row["Created"] . " Due: " . $row["Due"] ."</p>";
         
         //nl2br prints the linebreaks
-        echo "<p class='description'>". nl2br(mb_strimwidth($row["Description"], 0, 300, '[..]')) ."</p>";
+        echo "<p class='description'>". nl2br(mb_strimwidth($row["Description"], 0, 300, '...')) ."</p>";
         echo "</article>";
         echo "<hr>";
     }

@@ -1,29 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<style type="text/css">
-		div{
-			text-align: center;
-			position: absolute;
-			top: 40%;
-			right: 37%;
-			font-family: 'Comfortaa';
-		}button{
-			padding: 10px;
-			font-size: 15px;
-			color: #fff;
-			background: #333;
-			border: none;
-			border-radius: 100px;
-		}
-	</style>
-</head>
-<body>
-<div>
-<p>To use this app you need to register or LogIn</p>
-<a href="register.php"><button>Sign Up</button></a>
-<a href="login.php"><button>Log In</button></a>
-</div>
-</body>
-</html>
+<?php 
+    include 'include/management.php';
+    //dynamic title
+    function here($where) {
+        if ($where == true) {
+            return "Index";
+        }
+	}
+	
+	session_destroy();
+?>
+<section class='in'>
+    <h2>Welcome to the website!</h2>
+	<p>Please chose an option</p>
+	<div style="height: 10%"> </div>
+    <div class='options'>
+        <p class='opt-reg' ><a href='./register.php'> Register </a></p>
+        <p class='opt-log' ><a href="./login.php"> Login </a></p>
+    </div>
+</section>
+<?php 
+    include 'include/footer.php';
+?>

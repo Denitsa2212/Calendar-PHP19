@@ -54,7 +54,7 @@
                 echo "<article class = 'coming'>";
                 break;
         }
-        echo "<h3><a href='./task/task.php?task_id=". $row["task_id"] ."'>". $row["Title"] ."</a></h3>";
+        echo "<h3>". $row["Title"] ."</h3>";
         echo "<p class='tag'>". taging($row) ."</p>";
         echo "<p class='dates'> Created: ". $row["Created"] . " Due: " . $row["Due"] ."</p>";
         

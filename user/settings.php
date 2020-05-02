@@ -43,8 +43,8 @@
 
     <section class='settings'>
         <h1>Settings page</h1>
-        <p> Current <br> Style: <?=ucfirst(substr($_SESSION["settings"][0], 0, -4))?> <br> Order: <?=$_SESSION["settings"][1]?> </p>
-        
+        <hr>
+        <!-- <p> Current <br> Style: <?=ucfirst(substr($_SESSION["settings"][0], 0, -4))?> <br> Order: <?=$_SESSION["settings"][1]?> </p> -->
         <form method='post'>
             <h3>Style and order</h3>
             <select name='style'>
@@ -62,7 +62,8 @@
             <select name="order">
                 <option value='none'> Select task order </option>
                 <option value='Title'> Alphabetical </option>
-                <option value='Created'> By Date created </option>
+                <option value='Created ASC'> Oldest </option>
+                <option value='Created DESC'> Newest </option>
                 <option value='Due'> By Date Due </option>
             </select>
             <br><input type='submit'>

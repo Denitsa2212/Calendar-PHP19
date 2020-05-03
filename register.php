@@ -25,7 +25,9 @@
                 $conn->query("INSERT INTO `users` (`Name`, `Mail`, `Password`, `Created`) VALUES ('$name', '$mail', '$pass', '$now')");
                 //once the account is created it redirects to the login page
                 header("Location: login.php?register=true");
-            } else {
+            }elseif (!preg_match($patern, $_POST["mail"])) {
+                echo "<p class='alert'> Invalid email </p>";
+            }else {
                 echo "<p class='alert'> Pass dont match </p>";
             }
 

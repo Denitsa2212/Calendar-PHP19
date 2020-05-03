@@ -34,7 +34,7 @@
             //if in folder "tasks" this happens
             echo '<a href="../user/user.php"> '. $_SESSION["user_info"]["Name"] .' </a>';
             echo '<a href="../main.php"> Tasks </a>';
-        } elseif (preg_match("/\/register.php/", $_SERVER["REQUEST_URI"]) || preg_match("/\/login.php/", $_SERVER["REQUEST_URI"]) || preg_match("/\/ /", $_SERVER["REQUEST_URI"])) {
+        } elseif (preg_match("/\/register.php/", $_SERVER["REQUEST_URI"]) || preg_match("/\/login.php/", $_SERVER["REQUEST_URI"]) || preg_match("/[a-z]*\/$/", $_SERVER["REQUEST_URI"])) {
             //if in register" this happens
             echo '<a href="./login.php"> Login </a>';
             echo '<a href="./register.php"> Register </a>';

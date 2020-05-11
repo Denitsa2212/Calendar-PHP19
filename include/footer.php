@@ -1,5 +1,5 @@
     </body>
     <footer>
-        <p>Site by gam lol</p>
+        <p>Site by Team Epic</p>
     </footer>
 </html>

@@ -15,8 +15,13 @@
 
         //checking if form is empty
         if (!empty($_POST["name"]) && !empty($_POST["mail"]) && !empty($_POST["pass"]) && !empty($_POST["pass-conf"])) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                if ($row["Name"] == $_POST['name']) {
+                    $alreadyUser = true;
+                }
+            }
             //check if pass check checks chekcs out
-            if ($_POST["pass"] == $_POST["pass-conf"] && preg_match($patern, $_POST["mail"])) {
+            if ($_POST["pass"] == $_POST["pass-conf"] && preg_match($patern, $_POST["mail"]) && !$alreadyUser) {
                 $name = $_POST["name"];
                 $mail = $_POST["mail"];
                 $pass = $_POST["pass"];
@@ -25,7 +30,11 @@
                 $conn->query("INSERT INTO `users` (`Name`, `Mail`, `Password`, `Created`) VALUES ('$name', '$mail', '$pass', '$now')");
                 //once the account is created it redirects to the login page
                 header("Location: login.php?register=true");
-            } else {
+            } elseif ($alreadyUser){
+                echo "<p class='alert'> User already exists! </p>";
+            }elseif (!preg_match($patern, $_POST["mail"])) {
+                echo "<p class='alert'> Invalid email </p>";
+            }else {
                 echo "<p class='alert'> Pass dont match </p>";
             }
 

@@ -16,75 +16,30 @@
     $result = mysqli_query($conn, $read_query);
     $row = mysqli_fetch_assoc($result);
 
-    if (empty($_GET["type"])) {
-        $_GET["type"] = "all";
-    }
+    //display function on a seperate file
+    include '../include/display.php';
 
     switch ($_GET["type"]) {
         case 'done':
             if (taging($row) == "Done" || taging($row) == "Done Late") {
-                display($row);
+                display($row, true);
             }
             break;
         case 'missed':
             if (taging($row) == "Missing") {
-                display($row);
+                display($row, true);
             }
             break;
         case 'upcoming':
             if (taging($row) == "For Today" || taging($row) == "Within A Week" || taging($row) == "Upcoming") {
-                display($row);
+                display($row, true);
                 $none++;
             }
             break;
         default:
-            display($row);
+            display($row, true);
         break;
     }
-
-    function display($row) {
-        switch (taging($row)) {
-            case taging($row) == "Done" || taging($row) == "Done Late":
-                echo "<article class = 'done'>";
-                break;
-            case taging($row) == "Missing":
-                echo "<article class = 'missing'>";
-                break;
-            case taging($row) == "For Today" || taging($row) == "Within A Week" || taging($row) == "Upcoming":
-                echo "<article class = 'coming'>";
-                break;
-        }
-        echo "<h3>". $row["Title"] ."</h3>";
-        echo "<p class='tag'>". taging($row) ."</p>";
-        echo "<p class='dates'> Created: ". $row["Created"] . " Due: " . $row["Due"] ."</p>";
-        
-        //nl2br prints the linebreaks
-        echo "<p class='description'>". nl2br($row["Description"]) ."</p>";
-        echo "</article>";
-    }
-
-    function taging($row) {
-        if (strtotime(date('Y-m-d')) > strtotime($row["Due"]) && $row["Done"] == 0) {
-            return "Missing";
-        } else {
-            if (strtotime(date('Y-m-d')) == strtotime($row["Due"]) && $row["Done"] == 0) {
-                return "For Today";
-            } elseif (strtotime($row["Due"]) - strtotime(date('Y-m-d')) < 604800 && $row["Done"] == 0) {
-                return "Within A Week";
-            } elseif ($row["Done"] == 0) {
-                return "Upcoming";
-            } else {
-                return "Done";
-            }
-        }
-    }
-
-    function missing($type) {
-        echo "<article class='notasks'>";
-        echo "<p> You dont have any $type tasks.</p>";
-        echo "</article>";
-    }
-
 
     //task options
     echo "<div class='options'>";

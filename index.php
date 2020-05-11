@@ -6,8 +6,7 @@
             return "Index";
         }
 	}
-	
-	session_destroy();
+    session_destroy();
 ?>
 <section class='in'>
     <h2>Welcome to the website!</h2>

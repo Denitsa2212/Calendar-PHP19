@@ -30,7 +30,7 @@
                 $conn->query("INSERT INTO `users` (`Name`, `Mail`, `Password`, `Created`) VALUES ('$name', '$mail', '$pass', '$now')");
                 //once the account is created it redirects to the login page
                 header("Location: login.php?register=true");
-            } elseif ($alreadyUser){
+            } elseif ($alreadyUser) {
                 echo "<p class='alert'> User already exists! </p>";
             }elseif (!preg_match($patern, $_POST["mail"])) {
                 echo "<p class='alert'> Invalid email </p>";
